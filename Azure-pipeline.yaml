@@ -26,13 +26,19 @@ stages:
             displayName: "Validate if branch is allowed"
 
   - stage: Deploy
-    displayName: "Deployment"
+    displayName: "Terraform Deployment"
     dependsOn: ValidateBranch
     condition: succeeded()
     jobs:
-      - job: DeployJob
-        displayName: "Deploy Job"
+      - job: TerraformDeploy
+        displayName: "Deploy Resource Group"
         steps:
-          - script: echo "Deploying to environment..."
-            displayName: "Deploy Step"
+          - task: UseTerraform@0
+            inputs:
+              version: 'latest'
+          
+          - script: |
+              terraform init
+              terraform apply -auto-approve
+            displayName: "Initialize and Apply Terraform"
 
