@@ -1,0 +1,9 @@
+
+@admin
+
+# For Developers
+/TODO/ @admin
+
+# For devops, infra, or admin
+/azure-pipelines/ @DevOps 
+/main.tf/ @DevOps 
