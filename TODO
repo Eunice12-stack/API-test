@@ -1,0 +1,15 @@
+Check if release branch will push to repo and will trigger the pipeline. 
+Expected result: release/test-branch will run successfully
+(CHECK)
+
+Check if hotfix branch will push to repo and will trigger the pipeline. 
+Expected result: hotfix/test-branch will run successfully
+(CHECK)
+
+Check if main branch will push to repo and will trigger the pipeline. 
+Expected result: main branch will not run successfully and provided an error. 
+(CHECK) Error: Pipeline can only run on 'release/*' or 'hotfix/*' branches.
+
+Check if feature branch will push to repo and will trigger the pipeline. 
+Expected result: feature/test-branch will run successfully
+(CHECK) Error: Pipeline can only run on 'release/*' or 'hotfix/*' branches.
