@@ -25,20 +25,29 @@ stages:
               fi
             displayName: "Validate if branch is allowed"
 
+  - stage: InstallTerraform
+    displayName: "Install Terraform"
+    jobs:
+      - job: TerraformInstall
+        displayName: "Install Terraform"
+        steps:
+          - script: |
+              echo "Installing Terraform..."
+              curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+              curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+              sudo apt update && sudo apt install terraform
+              terraform --version
+            displayName: "Install Terraform"
+
   - stage: Deploy
     displayName: "Terraform Deployment"
-    dependsOn: ValidateBranch
+    dependsOn: [ValidateBranch, InstallTerraform]
     condition: succeeded()
     jobs:
       - job: TerraformDeploy
         displayName: "Deploy Resource Group"
         steps:
-          - task: UseTerraform@0
-            inputs:
-              version: 'latest'
-          
           - script: |
               terraform init
               terraform apply -auto-approve
             displayName: "Initialize and Apply Terraform"
-
