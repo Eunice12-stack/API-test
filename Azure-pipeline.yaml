@@ -19,7 +19,7 @@ stages:
         steps:
           - script: |
               echo "Validating branch..."
-              if [[ ! $(System.PullRequest.SourceBranch) =~ ^(refs/heads/release/|refs/heads/hotfix/) ]]; then
+              if [[ ! $(Build.SourceBranch) =~ ^refs/heads/(release|hotfix)/ ]]; then
                 echo "Error: Pipeline can only run on 'release/*' or 'hotfix/*' branches."
                 exit 1
               fi
