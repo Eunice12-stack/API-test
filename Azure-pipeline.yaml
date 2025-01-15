@@ -3,12 +3,14 @@ trigger:
     include:
       - release/*
       - hotfix/*
+      - main
 
 pr:
   branches:
     include:
       - release/*
       - hotfix/*
+      - main
 
 stages:
   - stage: ValidateBranch
